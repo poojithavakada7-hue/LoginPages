@@ -1,0 +1,717 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello Again - Login</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e9eaf2;
+    overflow-x: hidden;
+    padding: 35px 15px;
+}
+
+/* Background circles */
+
+.circle {
+    position: fixed;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+.circle1 {
+    width: 30px;
+    height: 30px;
+    top: 5%;
+    left: 3%;
+}
+
+.circle2 {
+    width: 17px;
+    height: 17px;
+    top: 3%;
+    right: 24%;
+}
+
+.circle3 {
+    width: 9px;
+    height: 9px;
+    top: 6%;
+    right: 34%;
+}
+
+.circle4 {
+    width: 12px;
+    height: 12px;
+    bottom: 5%;
+    left: 40%;
+}
+
+.circle5 {
+    width: 9px;
+    height: 9px;
+    top: 23%;
+    right: 3%;
+}
+
+/* Main container */
+
+.container {
+    width: 100%;
+    max-width: 1065px;
+    min-height: 755px;
+    display: flex;
+    padding: 10px;
+    background: rgba(255,255,255,0.45);
+    border: 2px solid white;
+    border-radius: 38px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+}
+
+/* Left illustration section */
+
+.left-panel {
+    width: 52%;
+    background: linear-gradient(145deg, #d38af3, #d28bf0, #c77ae9);
+    border-radius: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.illustration {
+    width: 100%;
+    max-width: 490px;
+    padding: 20px;
+}
+
+/* Right login section */
+
+.right-panel {
+    width: 48%;
+    padding: 25px 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+/* Register link */
+
+.register {
+    position: absolute;
+    top: 25px;
+    right: 45px;
+    font-size: 12px;
+    color: #333;
+}
+
+.register a {
+    color: #4388d6;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Login heading */
+
+.login-heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.login-heading h1 {
+    font-size: 27px;
+    color: #282735;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.login-heading p {
+    font-size: 14px;
+    color: #777785;
+}
+
+/* Form */
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input {
+    width: 100%;
+    height: 57px;
+    padding: 0 23px;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.92);
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.form-group input:focus {
+    box-shadow: 0 0 0 2px #d8a0ef;
+}
+
+.form-group input::placeholder {
+    color: #a0a0aa;
+}
+
+/* Password */
+
+.password-box {
+    position: relative;
+}
+
+.password-box input {
+    padding-right: 55px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #999;
+    font-size: 18px;
+}
+
+/* Recovery */
+
+.recovery {
+    text-align: right;
+    margin: 24px 5px 35px;
+}
+
+.recovery a {
+    font-size: 13px;
+    color: #777785;
+    text-decoration: none;
+}
+
+/* Sign in button */
+
+.signin-btn {
+    width: 100%;
+    height: 57px;
+    background: #ff696b;
+    color: white;
+    border: none;
+    border-radius: 11px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 12px 25px rgba(255,105,107,0.15);
+}
+
+.signin-btn:hover {
+    background: #ed555c;
+    transform: translateY(-2px);
+}
+
+/* Divider */
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 43px 0 32px;
+    color: #777785;
+    font-size: 13px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #ddd);
+}
+
+.divider::after {
+    background: linear-gradient(to left, transparent, #ddd);
+}
+
+/* Social login */
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+}
+
+.social-btn {
+    width: 76px;
+    height: 53px;
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    font-size: 25px;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-btn:hover {
+    background: white;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px #0001;
+}
+
+.google {
+    color: #4285f4;
+    font-weight: bold;
+}
+
+.apple {
+    color: #222;
+}
+
+.facebook {
+    background: #1877f2;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 23px;
+    padding-top: 5px;
+}
+
+/* Responsive design */
+
+@media(max-width: 800px) {
+    .container {
+        max-width: 500px;
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .left-panel {
+        width: 100%;
+        min-height: 300px;
+    }
+
+    .illustration {
+        max-width: 300px;
+    }
+
+    .right-panel {
+        width: 100%;
+        min-height: 570px;
+        padding: 90px 30px 35px;
+    }
+
+    .register {
+        top: 25px;
+        right: 25px;
+    }
+}
+
+@media(max-width: 400px) {
+    .right-panel {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .social-login {
+        gap: 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background circles -->
+
+<div class="circle circle1"></div>
+<div class="circle circle2"></div>
+<div class="circle circle3"></div>
+<div class="circle circle4"></div>
+<div class="circle circle5"></div>
+
+<div class="container">
+
+    <!-- LEFT PANEL -->
+
+    <div class="left-panel">
+
+        <svg class="illustration"
+             viewBox="0 0 500 500"
+             xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Floor shadow -->
+            <ellipse cx="250" cy="420" rx="190" ry="16"
+                     fill="#e6a4ed"/>
+
+            <!-- Lamp -->
+            <rect x="310" y="125" width="9" height="160"
+                  fill="#a36b4c"/>
+
+            <path d="M280 125 L295 75 L335 75 L350 125 Z"
+                  fill="#fff7f5"/>
+
+            <ellipse cx="315" cy="125" rx="35" ry="5"
+                     fill="#f5dfe9"/>
+
+            <!-- Plant pot -->
+            <path d="M380 355 L435 355 L428 415 L387 415 Z"
+                  fill="#f5dce9"/>
+
+            <path d="M405 355 Q390 290 365 270"
+                  stroke="#4b9b55" stroke-width="5" fill="none"/>
+
+            <path d="M405 350 Q420 285 450 275"
+                  stroke="#4b9b55" stroke-width="5" fill="none"/>
+
+            <path d="M405 340 Q400 295 400 265"
+                  stroke="#4b9b55" stroke-width="5" fill="none"/>
+
+            <ellipse cx="367" cy="275" rx="13" ry="30"
+                     fill="#70b95e" transform="rotate(-40 367 275)"/>
+
+            <ellipse cx="449" cy="280" rx="13" ry="30"
+                     fill="#54a65d" transform="rotate(40 449 280)"/>
+
+            <ellipse cx="400" cy="270" rx="12" ry="29"
+                     fill="#82c86c"/>
+
+            <!-- Small plant -->
+            <path d="M65 390 L120 390 L115 425 L70 425 Z"
+                  fill="#a7b8a0"/>
+
+            <path d="M90 390 Q75 350 55 360"
+                  stroke="#4e9b50" stroke-width="4" fill="none"/>
+
+            <path d="M90 390 Q105 350 130 355"
+                  stroke="#4e9b50" stroke-width="4" fill="none"/>
+
+            <ellipse cx="55" cy="360" rx="17" ry="9"
+                     fill="#70b95e"/>
+
+            <ellipse cx="130" cy="355" rx="17" ry="9"
+                     fill="#70b95e"/>
+
+            <!-- Chair back -->
+            <rect x="120" y="205" width="245" height="160"
+                  rx="40" fill="#f5bd70"/>
+
+            <rect x="128" y="215" width="230" height="145"
+                  rx="35" fill="#ffd18a"/>
+
+            <!-- Chair seat -->
+            <rect x="115" y="335" width="270" height="85"
+                  rx="28" fill="#f5c27a"/>
+
+            <rect x="128" y="345" width="245" height="58"
+                  rx="20" fill="#ffd99a"/>
+
+            <!-- Chair legs -->
+            <path d="M140 410 L150 465 L165 465 L160 410"
+                  fill="#a56a3d"/>
+
+            <path d="M335 410 L340 465 L355 465 L360 410"
+                  fill="#a56a3d"/>
+
+            <!-- Girl legs -->
+            <path d="M220 300 Q245 330 285 350
+                     L350 360 Q370 370 350 385
+                     L270 380 Q225 365 200 340 Z"
+                  fill="#ffd0b2"/>
+
+            <path d="M285 350 Q320 355 375 360
+                     L385 390 Q370 400 350 390
+                     L290 385 Z"
+                  fill="#ffd0b2"/>
+
+            <!-- Socks -->
+            <path d="M345 380 L380 390 L375 410
+                     L340 405 Z"
+                  fill="#fff"/>
+
+            <!-- Shoes -->
+            <path d="M370 400 Q400 400 405 425
+                     Q400 442 365 433 L350 415 Z"
+                  fill="#30313d"/>
+
+            <path d="M350 425 L400 430"
+                  stroke="white" stroke-width="4"/>
+
+            <!-- Girl body -->
+            <path d="M205 235 Q250 215 280 250
+                     L300 330 Q260 350 205 320 Z"
+                  fill="#f9e8d0"/>
+
+            <!-- Shirt -->
+            <path d="M210 235 Q250 215 280 250
+                     L270 295 L200 290 Z"
+                  fill="#71d8c3"/>
+
+            <!-- Arms -->
+            <path d="M225 250 Q210 280 240 300"
+                  stroke="#ffd0b2" stroke-width="16"
+                  fill="none" stroke-linecap="round"/>
+
+            <path d="M270 250 Q285 275 275 295"
+                  stroke="#ffd0b2" stroke-width="16"
+                  fill="none" stroke-linecap="round"/>
+
+            <!-- Neck -->
+            <rect x="235" y="205" width="28" height="35"
+                  rx="10" fill="#ffd0b2"/>
+
+            <!-- Hair back -->
+            <ellipse cx="247" cy="175" rx="38" ry="43"
+                     fill="#fa777c"/>
+
+            <!-- Face -->
+            <ellipse cx="247" cy="180" rx="28" ry="34"
+                     fill="#ffd0b2"/>
+
+            <!-- Hair fringe -->
+            <path d="M218 177 Q205 125 245 135
+                     Q280 125 277 170
+                     Q265 150 250 157
+                     Q235 145 218 177"
+                  fill="#fa777c"/>
+
+            <!-- Hair bun -->
+            <circle cx="247" cy="130" r="19" fill="#fa777c"/>
+            <circle cx="233" cy="125" r="12" fill="#f66b73"/>
+            <circle cx="260" cy="120" r="12" fill="#f66b73"/>
+
+            <!-- Eyes -->
+            <circle cx="237" cy="180" r="2.5" fill="#333"/>
+            <circle cx="258" cy="180" r="2.5" fill="#333"/>
+
+            <!-- Smile -->
+            <path d="M240 193 Q248 199 255 192"
+                  stroke="#c96a63" stroke-width="2"
+                  fill="none" stroke-linecap="round"/>
+
+            <!-- Phone -->
+            <rect x="253" y="215" width="48" height="65"
+                  rx="7" fill="#343b52"
+                  transform="rotate(12 253 215)"/>
+
+            <rect x="258" y="220" width="38" height="53"
+                  rx="4" fill="#60718f"
+                  transform="rotate(12 258 220)"/>
+
+            <circle cx="289" cy="227" r="2" fill="#222"/>
+
+        </svg>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+
+    <div class="right-panel">
+
+        <div class="register">
+            Not a member?
+            <a href="#" onclick="registerUser(event)">
+                Register now
+            </a>
+        </div>
+
+        <div class="login-heading">
+            <h1>Hello Again!</h1>
+            <p>Welcome back you've been missed!</p>
+        </div>
+
+        <form id="loginForm">
+
+            <div class="form-group">
+                <input type="text"
+                       id="username"
+                       placeholder="Enter username"
+                       required>
+            </div>
+
+            <div class="form-group password-box">
+
+                <input type="password"
+                       id="password"
+                       placeholder="Password"
+                       required>
+
+                <button type="button"
+                        class="toggle-password"
+                        id="togglePassword"
+                        aria-label="Show password">
+                    ◉
+                </button>
+
+            </div>
+
+            <div class="recovery">
+                <a href="#" onclick="recoverPassword(event)">
+                    Recovery Password
+                </a>
+            </div>
+
+            <button type="submit" class="signin-btn">
+                Sign In
+            </button>
+
+        </form>
+
+        <div class="divider">
+            Or continue with
+        </div>
+
+        <!-- Social Login -->
+
+        <div class="social-login">
+
+            <button class="social-btn google"
+                    onclick="socialLogin('Google')">
+                G
+            </button>
+
+            <button class="social-btn apple"
+                    onclick="socialLogin('Apple')">
+                
+            </button>
+
+            <button class="social-btn">
+                <span class="facebook"
+                      onclick="socialLogin('Facebook')">
+                    f
+                </span>
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+// Show and hide password
+
+const password = document.getElementById("password");
+
+const toggle = document.getElementById("togglePassword");
+
+toggle.addEventListener("click", function() {
+
+    if(password.type === "password") {
+
+        password.type = "text";
+        toggle.innerText = "◎";
+        toggle.setAttribute("aria-label", "Hide password");
+
+    } else {
+
+        password.type = "password";
+        toggle.innerText = "◉";
+        toggle.setAttribute("aria-label", "Show password");
+
+    }
+
+});
+
+// Login validation
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let username =
+    document.getElementById("username").value.trim();
+
+    let passwordValue = password.value;
+
+    if(username === "" || passwordValue === "") {
+
+        alert("Please enter all details!");
+
+    }
+
+    else if(passwordValue.length < 6) {
+
+        alert("Password must contain at least 6 characters!");
+
+    }
+
+    else {
+
+        alert("Welcome " + username + "! Login form submitted successfully.");
+
+    }
+
+});
+
+// Recovery password
+
+function recoverPassword(event) {
+
+    event.preventDefault();
+
+    let username =
+    document.getElementById("username").value.trim();
+
+    if(username === "") {
+
+        alert("Please enter your username first.");
+
+    } else {
+
+        alert("Password recovery requested for " + username);
+
+    }
+
+}
+
+// Register
+
+function registerUser(event) {
+
+    event.preventDefault();
+
+    alert("Registration page will open here!");
+
+}
+
+// Social login
+
+function socialLogin(platform) {
+
+    alert("You selected " + platform + " login.");
+
+}
+
+</script>
+
+</body>
+</html>
